@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SampleWorkingWebAPI.Model;
+using SampleWorkingWebAPI.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,10 +8,12 @@ using System.Threading.Tasks;
 
 namespace SampleWorkingWebAPI.Controllers
 {
-    public class StudenttController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class StudenttController : ControllerBase
     {
-       private readonly IStudentsServices _studservice;
-        public StudenttController(IStudentsServices studservice)
+       private readonly IStudentServices _studservice;
+        public StudenttController(IStudentServices studservice)
         {
             _studservice = studservice;
         }
@@ -36,10 +39,10 @@ namespace SampleWorkingWebAPI.Controllers
         }
 
         [HttpGet]
-        [Route("DeleteStudentt/{id}")]
-        public IActionResult DeleteStudentt(int id)
+        [Route("DeleteStudentt/{rollno}")]
+        public IActionResult DeleteStudentt(int rollno)
         {
-            return new ObjectResult(_studservice.DeleteStudentt(id));
+            return new ObjectResult(_studservice.DeleteStudentt(rollno));
         }
     }
 }
